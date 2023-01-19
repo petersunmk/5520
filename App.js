@@ -2,25 +2,25 @@ import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import Header from "./components/Header";
+import Input from "./components/Input";
 
-export default function App() {
-  const [text, setText] = useState();
+export default App = () => {
+  const name = "CS 5520"; //js variable
+  const [enteredText, setEnteredText] = useState("");
+
+  function onTextEnter(changedText) {
+    setEnteredText(changedText);
+  }
 
   return (
     <View style={styles.container}>
-      <Header name="CS 5520" />
+      <Header appName={name} />
       <StatusBar style="auto" />
-      <TextInput
-        style={{ backgroundColor: "red" }}
-        //value={text}
-        onChangeText={(changeText) => {
-          setText(changeText);
-        }}
-      />
-      <Text>{text}</Text>
+      <Input textUpdateFunction={onTextEnter} />
+      <Text>{enteredText}</Text>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
