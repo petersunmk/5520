@@ -7,6 +7,8 @@ import {
   Text,
   TextInput,
   View,
+  scrollView,
+  GoalItem,
 } from "react-native";
 import Header from "./components/Header";
 import Input from "./components/Input";
@@ -27,6 +29,7 @@ export default App = () => {
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.topContainer}>
+        {/* <GoalItem /> */}
         <Header appName={name} />
         <Button title="Add task" onPress={() => setModalVisible(true)} />
       </View>
@@ -38,7 +41,9 @@ export default App = () => {
       />
 
       <View style={styles.bottomContainer}>
-        <Text style={styles.text}>{enteredText}</Text>
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>{enteredText}</Text>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -51,7 +56,7 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
     justifyContent: "center",
   },
-
+  scrollView: {},
   topContainer: {
     flex: 1,
     alignItems: "center",
@@ -60,6 +65,12 @@ const styles = StyleSheet.create({
   bottomContainer: {
     flex: 4,
     backgroundColor: "#dcd",
+    alignItems: "center",
+  },
+
+  textContainer: {
+    borderRadius: 10,
+    backgroundColor: "#888",
   },
 
   text: {
