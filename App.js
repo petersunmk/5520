@@ -7,19 +7,21 @@ import {
   Text,
   TextInput,
   View,
-  scrollView,
   GoalItem,
+  ScrollView,
 } from "react-native";
 import Header from "./components/Header";
 import Input from "./components/Input";
 
 export default App = () => {
   const name = "CS 5520"; //js variable
-  const [enteredText, setEnteredText] = useState("");
-
+  // const [enteredText, setEnteredText] = useState("");
+  const [goals, setGoals] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   function onTextEnter(changedText) {
-    setEnteredText(changedText);
+    // setEnteredText(changedText);
+    let newGoals = { text: changedText, id: Math.random() };
+    setGoals((prevGoals) => [...prevGoals, newGoals]);
     setModalVisible(false);
   }
   function onCancel() {
@@ -41,9 +43,15 @@ export default App = () => {
       />
 
       <View style={styles.bottomContainer}>
-        <View style={styles.textContainer}>
-          <Text style={styles.text}>{enteredText}</Text>
-        </View>
+        <ScrollView contentContainerStyle={styles.scrollViewContentContainer}>
+          {goals.map((goal) => {
+            return (
+              <View key={goal.id} style={styles.textContainer}>
+                <Text style={styles.text}>{goal.text}</Text>
+              </View>
+            );
+          })}
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
@@ -65,16 +73,20 @@ const styles = StyleSheet.create({
   bottomContainer: {
     flex: 4,
     backgroundColor: "#dcd",
+  },
+  scrollViewContentContainer: {
     alignItems: "center",
   },
 
   textContainer: {
     borderRadius: 10,
     backgroundColor: "#888",
+    marginVertical: 15,
+    padding: 10,
   },
 
   text: {
     color: "#4510ff",
-    fontSize: 18,
+    fontSize: 30,
   },
 });
