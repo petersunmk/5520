@@ -2,16 +2,17 @@ import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import {
   Button,
+  FlatList,
   SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
   View,
-  GoalItem,
   ScrollView,
 } from "react-native";
 import Header from "./components/Header";
 import Input from "./components/Input";
+import GoalItem from "./components/GoalItem";
 
 export default App = () => {
   const name = "CS 5520"; //js variable
@@ -43,7 +44,7 @@ export default App = () => {
       />
 
       <View style={styles.bottomContainer}>
-        <ScrollView contentContainerStyle={styles.scrollViewContentContainer}>
+        {/* <ScrollView contentContainerStyle={styles.scrollViewContentContainer}>
           {goals.map((goal) => {
             return (
               <View key={goal.id} style={styles.textContainer}>
@@ -51,7 +52,14 @@ export default App = () => {
               </View>
             );
           })}
-        </ScrollView>
+        </ScrollView> */}
+        <FlatList
+          contentContainerStyle={styles.scrollViewContentContainer}
+          data={goals}
+          renderItem={({ item }) => {
+            return <GoalItem goal={item} />;
+          }}
+        />
       </View>
     </SafeAreaView>
   );
