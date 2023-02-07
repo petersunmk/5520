@@ -34,6 +34,9 @@ export default App = () => {
       return prevGoals.filter((goal) => goal.id !== id);
     });
   }
+  function goalItemPressed() {
+    console.log("Goal item pressed");
+  }
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
@@ -63,7 +66,13 @@ export default App = () => {
           contentContainerStyle={styles.scrollViewContentContainer}
           data={goals}
           renderItem={({ item }) => {
-            return <GoalItem goal={item} onDelete={onDeletePressed} />;
+            return (
+              <GoalItem
+                goal={item}
+                onDelete={onDeletePressed}
+                onGoalItemPressed={goalItemPressed}
+              />
+            );
           }}
         />
       </View>
