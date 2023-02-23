@@ -1,17 +1,24 @@
-// import { View, Text, Pressable } from "react-native";
-// import React from "react";
-// import { MaterialCommunityIcons } from "@expo/vector-icons";
-
-// const PressableButton = (style,props) => {
-//   return (
-//     <Pressable style={{ pressed }} =>{} >
-//       <View>
-//         <Text>Button</Text>
-//         <MaterialCommunityIcons name="delete-forever" size={24} color="black" />
-//       </View>
-//     </Pressable>
-
-//   );
-// };
-
-// export default PressableButton;
+import { View, Text, Pressable, StyleSheet } from "react-native";
+import React from "react";
+export default function PressableButton({ style, pressHandler, children }) {
+  // console.log(props);
+  return (
+    <Pressable
+      style={({ pressed }) => {
+        // console.log("data from style ", data);
+        return [
+          styles.buttonStyle,
+          style,
+          pressed ? styles.pressedStyle : null,
+        ];
+      }}
+      onPress={pressHandler}
+    >
+      <View>{children}</View>
+    </Pressable>
+  );
+}
+const styles = StyleSheet.create({
+  buttonStyle: { justifyContent: "center", backgroundColor: "green" },
+  pressedStyle: { backgroundColor: "red", opacity: 0.5 },
+});

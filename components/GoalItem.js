@@ -1,28 +1,41 @@
 import { View, Text, StyleSheet, Button, Pressable } from "react-native";
 import React from "react";
 import PressableButton from "./PressableButton";
+import { FontAwesome } from "@expo/vector-icons";
 
-export default function GoalItem({ goal, onDelete, onGoalItemPressed }) {
+export default function GoalItem({ goal, onDelete, onGoalPress }) {
+  function deleteHandler() {
+    onDelete(goal.id);
+    console.log(goal.id);
+  }
+
   return (
-    <Pressable
-      style={(data) => {
-        // style={(pressed) => {
-        console.log("data from style", data);
-        return [
-          styles.textContainer,
-          data.pressed ? styles.pressedStyle : null,
-        ];
-      }}
-      onPress={onGoalItemPressed}
-      // android_ripple={{ color: "red", radius: "10" }}
-    >
-      <View style={styles.textContainer}>
+    <View>
+      <Pressable
+        style={({ pressed }) => {
+          // console.log("data from style ", data);
+          return [styles.textContainer, pressed ? styles.pressedStyle : null];
+        }}
+        // android_ripple={{ color: "red" }}
+        onPress={() => onGoalPress(goal)}
+      >
         <Text style={styles.text}>{goal.text}</Text>
-        <Button color="black" title="X" onPress={() => onDelete(goal.id)} />
-
-        {/* <PressableButton /> */}
-      </View>
-    </Pressable>
+        {/* <Button
+          color="black"
+          title="Help"
+          onPress={() => {
+            testNavigation();
+          }}
+        /> */}
+        <PressableButton
+          style={{ backgroundColor: "yellow" }}
+          title="X"
+          pressHandler={deleteHandler}
+        >
+          <FontAwesome name="trash-o" size={24} color="black" />
+        </PressableButton>
+      </Pressable>
+    </View>
   );
 }
 
@@ -40,8 +53,5 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginRight: 8,
   },
-  pressedStyle: {
-    backgroundColor: "red",
-    opacity: 0.5,
-  },
+  pressedStyle: { backgroundColor: "#e9e", opacity: 0.5 },
 });

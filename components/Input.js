@@ -3,18 +3,19 @@ import {
   Text,
   TextInput,
   Button,
-  StyleSheet,
   Modal,
+  StyleSheet,
   Image,
 } from "react-native";
 import { useState } from "react";
+import PressableButton from "./PressableButton";
 
 export default function Input({
   textUpdateFunction,
   modalIsVisible,
   onCancel,
 }) {
-  const [text, setText] = useState("initial value");
+  const [text, setText] = useState("");
   function updateText() {
     textUpdateFunction(text);
   }
@@ -35,7 +36,6 @@ export default function Input({
             setText(changedText);
           }}
         />
-
         <View style={styles.buttonContainer}>
           <View style={styles.button}>
             <Button
@@ -47,9 +47,15 @@ export default function Input({
               }}
             />
           </View>
-          <View style={styles.button}>
+          {/* <View style={styles.button}>
             <Button title="Cancel" onPress={onCancel} />
-          </View>
+          </View> */}
+          <PressableButton
+            pressHandler={onCancel}
+            style={{ backgroundColor: "lightgreen" }}
+          >
+            <Text>Cancel</Text>
+          </PressableButton>
         </View>
       </View>
     </Modal>
